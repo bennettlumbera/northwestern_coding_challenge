@@ -1,0 +1,21 @@
+<ul>
+    <li><a href="/enrollments/new">Add New Enrollment</a></li>
+    <li><a href="/registries">Add New Registry</a></li>
+    <li><a href="/registries">All Registries</a></li>
+    <li><a href="/coordinators">All Coordinators</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+<% flash.each do |key, value| %>
+    <p><%= value %></p> 
+<% end %>
+<h3>New Participant Form</h3>
+<form action="/participants" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <input type="text" name="participant[name]" placeholder="Name"><br>
+    <select name="participant[gender]">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select><br>
+    Date of Birth: <input type="date" name="participant[date_of_birth]"><br>
+    <input type="submit" value="Add Participant">
+</form>

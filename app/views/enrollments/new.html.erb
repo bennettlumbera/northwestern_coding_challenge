@@ -1,0 +1,36 @@
+<ul>
+    <li><a href="/registries">Add New Registry</a></li>
+    <li><a href="/participants/new">Add New Participant</a></li>
+    <li><a href="/registries">All Registries</a></li>
+    <li><a href="/coordinators">All Coordinators</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+
+<% flash.each do |key, value| %>
+    <p><%= value %></p> 
+<% end %>
+
+<h2>New Enrollment Form</h2>
+<form action="/enrollments" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    Date of Enrollment: <input type="date" name="enrollment[date_of_enrollment]"><br>
+    Method of Contact: <input type="text" name="enrollment[method_of_contact]" placeholder="Phone number or email address."><br>
+    Select Registry For Enrollment:
+        <% if @registries.empty? %>
+            <p>You are not assigned to any registries!</p>
+        <% else %>
+        <select name="enrollment[registry_id]">
+            <% @registries.where(open: true).each do |registry| %>
+                <option value="<%=registry.id%>"><%=registry.name%></option>
+            <% end %>    
+        <% end %>
+        </select><br>
+    Choose Participant: <select name="enrollment[participant_id]">
+    <% @participants.each do |participant| %>
+        <option value="<%=participant.id%>"><%=participant.name%></option>
+    <% end %>
+    </select><br>
+    <textarea name="enrollment[remarks]" placeholder="Please enter any remarks" cols="30" rows="10"></textarea><br>
+    <input type="submit" value="Complete Enrollment">
+</form>
+

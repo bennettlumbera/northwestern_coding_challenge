@@ -1,0 +1,72 @@
+<ul>
+    <li><a href="/enrollments/new">Add New Enrollment</a></li>
+    <li><a href="/participants/new">Add New Participant</a></li>
+    <li><a href="/coordinators">All Coordinators</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+<h3>All Registries</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Coordinators</th>
+            <th>Add Coordinator</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @registries.each do |registry| %>
+        <tr>
+            <td><a href="/registries/<%=registry.id%>"> <%= registry.name %> </a></td>
+            <td><%= registry.location %> </td>
+            <% if registry.open == true %>
+            <td>
+                <p style="color:green"><strong>Open  </strong><a href="/registries/<%=registry.id%>/toggle" data-method="patch"><button>Toggle Status</button></a></p>
+            </td>
+            <td>
+                <% registry.coordinators.each do |coordinator| %>
+                <ul>
+                    <li><a href="/coordinators/<%=coordinator.id%>"><%=coordinator.name%></a></li>
+                </ul>
+                <% end %>
+            </td>
+            <td>
+                <form action="/registries/<%=registry.id%>/add_coordinator" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                    <select name="coordinator">
+                        <option value="Select a Coordinator">Select a Coordinator</option>
+                        <% @coordinators.each do |coordinator| %>
+                        <option value="<%= coordinator.id %>"><%= coordinator.name %></option>
+                        <% end %>
+                    </select>
+                    <input type="submit" value="Add Coordinator">
+                </form>
+            </td>
+            <% else %> 
+            <td>
+                <p style="color:red"><strong>Closed</strong>  <a href="registries/<%=registry.id%>/toggle" data-method="patch"><button>Toggle Status</button></a></p>
+            </td>
+            <td>
+                <% registry.coordinators.each do |coordinator| %>
+                <ul>
+                    <li><a href="/coordinators/<%=coordinator.id%>"><%=coordinator.name%></a></li>
+                </ul>
+                <% end %>
+            </td>
+            <% end %>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<h3>Create New Registry</h3>
+<% flash.each do |key, value| %>
+    <p><%= value %></p> 
+<% end %>
+<form action="/registries" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <input type="text" name="registry[name]" placeholder="Name"><br>
+    <input type="text" name="registry[location]" placeholder="Location"><br>
+    <input type="submit" value="Create Registry"> 
+</form>

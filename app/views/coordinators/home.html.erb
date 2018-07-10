@@ -1,0 +1,20 @@
+<% flash.each do |key, value| %>
+    <p><%= value %></p> 
+<% end %>
+<h2>Coordinator Login</h2>
+<form action="/login" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <input type="text" name="email" placeholder="Email"><br>
+    <input type="password" name="password" placeholder="Password"><br>
+    <input type="submit" value="Login">
+</form>
+
+<h2>Coordinator Registration Form</h2>
+<form action="/coordinators" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <input type="text" name="coordinator[name]" placeholder="Name"><br>
+    <input type="text" name="coordinator[phone_number]" placeholder="Phone Number"><br>
+    <input type="text" name="coordinator[email]" placeholder="Email"><br>
+    <input type="password" name="coordinator[password]" placeholder="Password"><br>
+    <input type="submit" value="Complete Registration">
+</form>

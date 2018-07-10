@@ -1,0 +1,26 @@
+<ul>
+    <li><a href="/enrollments/new">Add New Enrollment</a></li>
+    <li><a href="/registries">Add New Registry</a></li>
+    <li><a href="/participants/new">Add New Participant</a></li>
+    <li><a href="/registries">All Registries</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+<h3>All Coordinators</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @coordinators.each do |coordinator|%>
+        <tr>
+            <td><%=coordinator.email%></td>
+            <td><a href="/coordinators/<%=coordinator.id%>"><%=coordinator.name%></a></td>
+            <td><%=coordinator.phone_number%></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

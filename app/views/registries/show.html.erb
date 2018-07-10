@@ -1,0 +1,29 @@
+<ul>
+    <li><a href="/registries">Add New Registry</a></li>
+    <li><a href="/participants/new">Add New Participant</a></li>
+    <li><a href="/registries">All Registries</a></li>
+    <li><a href="/coordinators">All Coordinators</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+
+<h2><%=@registry.name%> Registry</h2>
+<h3>Location: <%=@registry.location%></h3>
+
+<h3>Coordinators & Their Participants</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Coordinator</th>
+            <th>Participants</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% @registry.enrollments.group(:coordinator_id).each do |enrollment| %>
+        <tr>
+            <td><%=enrollment.registry_id%></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
+
+
