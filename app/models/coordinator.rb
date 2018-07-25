@@ -5,4 +5,5 @@ class Coordinator < ApplicationRecord
 
     validates :email, uniqueness: true
     validates :email, :name, :phone_number, presence: true 
+    # validates :coordinator, uniqueness: { scope: :registries}
 end

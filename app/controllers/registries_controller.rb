@@ -21,7 +21,7 @@ class RegistriesController < ApplicationController
   def add_coordinator
      @registry = Registry.find(params[:registry_id])
      @coordinator = Coordinator.find(params[:coordinator])
-     @registry.coordinators << @coordinator
+     @registry.coordinators << @coordinator unless @registry.coordinators.include?(@coordinator)
      redirect_to :back
   end 
 
