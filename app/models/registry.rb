@@ -5,5 +5,4 @@ class Registry < ApplicationRecord
     
     validates :name, uniqueness: true
     validates :name, :location, :open, presence: true 
-    # validates :registry, uniqueness: { scope: :coordinators }
 end
