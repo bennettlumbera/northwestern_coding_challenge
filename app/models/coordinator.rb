@@ -4,5 +4,5 @@ class Coordinator < ApplicationRecord
     has_many :participants, through: :enrollments
 
     validates :email, uniqueness: true
-    validates :email, :name, :phone_number, presence: true 
+    # validates :email, :name, :phone_number, presence: true 
 end
