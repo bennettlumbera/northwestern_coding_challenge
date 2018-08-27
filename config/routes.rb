@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post '/registries' => 'registries#create'
   get '/registries/:registry_id' => 'registries#show'
   post 'registries/:registry_id/add_coordinator' => "registries#add_coordinator"
-  patch '/registries/:registry_id/toggle' => 'registries#toggle_open'
+  get '/registries/:registry_id/toggle' => 'registries#toggle'
   patch '/registries/:registry_id/update_coordinator' => 'registries#update_coordinator'
 
   post '/login' => 'coordinators#login'

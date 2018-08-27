@@ -25,7 +25,7 @@ class RegistriesController < ApplicationController
      redirect_to :back
   end 
 
-  def toggle_open
+  def toggle
     @registry = Registry.find(params[:registry_id])
     @registry.toggle!(:open)
     redirect_to :back

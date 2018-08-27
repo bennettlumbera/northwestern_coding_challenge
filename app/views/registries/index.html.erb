@@ -1,30 +1,46 @@
-<ul>
-    <li><a href="/enrollments/new">Add New Enrollment</a></li>
-    <li><a href="/participants/new">Add New Participant</a></li>
-    <li><a href="/coordinators">All Coordinators</a></li>
-    <li><a href="/logout">Logout</a></li>
-</ul>
-<h3>All Registries</h3>
-<table>
-    <thead>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/registries">Registries</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/coordinators">Coordinators</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/enrollments/new">New Enrollment</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/participants/new">New Participant</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
+  </div>
+</nav>
+
+<table class="table">
+    <thead class="thead-dark">
         <tr>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Status</th>
-            <th>Coordinators</th>
-            <th>Add Coordinator</th>
+            <th scope="col">Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Status</th>
+            <th scope="col">Coordinators</th>
+            <th scope="col">Add Coordinator</th>
         </tr>
     </thead>
     <tbody>
-        <% @registries.each do |registry| %>
+    <% @registries.each do |registry| %>
         <tr>
-            <td><a href="/registries/<%=registry.id%>"> <%= registry.name %> </a></td>
-            <td><%= registry.location %> </td>
+            <td><a href="/registries/<%=registry.id%>"> <%= registry.name %></a></td>
+            <td><%= registry.location %></td>
             <% if registry.open == true %>
-            <td>
+             <td>
                 <p style="color:green"><strong>Open  </strong><a href="/registries/<%=registry.id%>/toggle" data-method="patch"><button>Toggle Status</button></a></p>
             </td>
-            <td>
+             <td>
                 <% registry.coordinators.each do |coordinator| %>
                 <ul>
                     <li><a href="/coordinators/<%=coordinator.id%>"><%=coordinator.name%></a></li>
@@ -43,7 +59,7 @@
                     <input type="submit" value="Add Coordinator">
                 </form>
             </td>
-            <% else %> 
+            <% else %>
             <td>
                 <p style="color:red"><strong>Closed</strong>  <a href="registries/<%=registry.id%>/toggle" data-method="patch"><button>Toggle Status</button></a></p>
             </td>
@@ -56,17 +72,24 @@
             </td>
             <% end %>
         </tr>
-        <% end %>
+    <% end %>    
     </tbody>
 </table>
 
-<h3>Create New Registry</h3>
 <% flash.each do |key, value| %>
     <p><%= value %></p> 
 <% end %>
+<h5>Create New Registry</h5>
+
 <form action="/registries" method="post">
     <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-    <input type="text" name="registry[name]" placeholder="Name"><br>
-    <input type="text" name="registry[location]" placeholder="Location"><br>
-    <input type="submit" value="Create Registry"> 
+    <div class="form-row">
+        <div class="col">
+            <input type="text" name="registry[name]" class="form-control" placeholder="Name">
+        </div>
+        <div class="col">
+            <input type="text" name="registry[location]" class="form-control" placeholder="Location">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Registry</button>
+    </div>
 </form>

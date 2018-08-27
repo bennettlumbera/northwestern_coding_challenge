@@ -24,8 +24,8 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 gem 'mini_racer', platforms: :ruby
 # gem 'bootstrap'
-
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap', '~> 4.1.3'
+# gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 
 # Use jquery as the JavaScript library

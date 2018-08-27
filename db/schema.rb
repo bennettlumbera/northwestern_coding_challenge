@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614025435) do
+ActiveRecord::Schema.define(version: 20180824155413) do
 
   create_table "coordinators", force: :cascade do |t|
     t.string   "email"
@@ -51,9 +51,9 @@ ActiveRecord::Schema.define(version: 20180614025435) do
   create_table "registries", force: :cascade do |t|
     t.string   "name"
     t.string   "location"
-    t.boolean  "open"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "open",       default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end
