@@ -19,10 +19,14 @@ class RegistriesController < ApplicationController
   end 
 
   def add_coordinator
-     @registry = Registry.find(params[:registry_id])
-     @coordinator = Coordinator.find(params[:coordinator])
-     @registry.coordinators << @coordinator unless @registry.coordinators.include?(@coordinator)
-     redirect_to :back
+    @registry = Registry.find(params[:registry_id])
+    @coordinator = Coordinator.find(params[:coordinator])
+    if @registry.coordinators.include?(@coordinator)
+      flash[:message] = "Coordinator already exists in registry. Please choose a different coordinator."
+    else 
+      @registry.coordinators << @coordinator 
+    end 
+    redirect_to :back
   end 
 
   def toggle

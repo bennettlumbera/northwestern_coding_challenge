@@ -34,27 +34,31 @@
     <tbody>
     <% @registries.each do |registry| %>
         <tr>
-            <td><a href="/registries/<%=registry.id%>"> <%= registry.name %></a></td>
-            <td><%= registry.location %></td>
+            <td>
+                <a href="/registries/<%=registry.id%>"> <%= registry.name %></a>
+            </td>
+            <td>
+                <%= registry.location %>
+            </td>
+
             <% if registry.open == true %>
-             <td>
+            <td>
                 <p style="color:green"><strong>Open  </strong><a href="/registries/<%=registry.id%>/toggle" data-method="patch"><button>Toggle Status</button></a></p>
             </td>
-             <td>
-                <% registry.coordinators.each do |coordinator| %>
-                <ul>
-                    <li><a href="/coordinators/<%=coordinator.id%>"><%=coordinator.name%></a></li>
-                </ul>
-                <% end %>
+            <td>
+            <% registry.coordinators.each do |coordinator| %>
+                <div class="list-group">
+                    <a href="/coordinators/<%=coordinator.id%>" class="list-group-item list-group-item-action"><%=coordinator.name%></a>
+                </div>
+            <% end %>
             </td>
             <td>
                 <form action="/registries/<%=registry.id%>/add_coordinator" method="post">
                     <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
                     <select name="coordinator">
-                        <option value="Select a Coordinator">Select a Coordinator</option>
-                        <% @coordinators.each do |coordinator| %>
-                        <option value="<%= coordinator.id %>"><%= coordinator.name %></option>
-                        <% end %>
+                    <% @coordinators.each do |coordinator| %>
+                        <option value="<%=coordinator.id%>"><%=coordinator.name%></option>
+                    <% end %>
                     </select>
                     <input type="submit" value="Add Coordinator">
                 </form>
