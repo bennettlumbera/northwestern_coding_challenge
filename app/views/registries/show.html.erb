@@ -1,29 +1,50 @@
-<ul>
-    <li><a href="/registries">Add New Registry</a></li>
-    <li><a href="/participants/new">Add New Participant</a></li>
-    <li><a href="/registries">All Registries</a></li>
-    <li><a href="/coordinators">All Coordinators</a></li>
-    <li><a href="/logout">Logout</a></li>
-</ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/registries">Registries</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/coordinators">Coordinators</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/registries">New Registry</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/enrollments/new">New Enrollment</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/participants/new">New Participant</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
+  </div>
+</nav>
 
-<h2><%=@registry.name%> Registry</h2>
-<h3>Location: <%=@registry.location%></h3>
 
-<h3>Coordinators & Their Participants</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Coordinator</th>
-            <th>Participants</th>
-        </tr>
-    </thead>
-    <tbody>
-    <% @registry.enrollments.group(:coordinator_id).each do |enrollment| %>
-        <tr>
-            <td><%=enrollment.registry_id%></td>
-        </tr>
-    <% end %>
-    </tbody>
-</table>
+<div class="jumbotron">
+    <h2 class="display-4"><%=@registry.name%></h2>
+    <p class="lead"><%=@registry.location%></p>
+
+    <hr class="my-4">
+    
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Coordinator</th>
+                <th scope="col">Participants</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% @registry.enrollments.group(:coordinator_id).each do |enrollment| %>
+            <tr>
+                <td><%=enrollment.registry_id%></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+</div>
 
 

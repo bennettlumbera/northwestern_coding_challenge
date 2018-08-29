@@ -1,36 +1,71 @@
-<ul>
-    <li><a href="/registries">Add New Registry</a></li>
-    <li><a href="/participants/new">Add New Participant</a></li>
-    <li><a href="/registries">All Registries</a></li>
-    <li><a href="/coordinators">All Coordinators</a></li>
-    <li><a href="/logout">Logout</a></li>
-</ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/registries">Registries</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/coordinators">Coordinators</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/registries">New Registry</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/participants/new">New Participant</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
+  </div>
+</nav>
 
 <% flash.each do |key, value| %>
     <p><%= value %></p> 
 <% end %>
 
-<h2>New Enrollment Form</h2>
+<h4>Enrollment Form</h4>
+
 <form action="/enrollments" method="post">
     <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-    Date of Enrollment: <input type="date" name="enrollment[date_of_enrollment]"><br>
-    Method of Contact: <input type="text" name="enrollment[method_of_contact]" placeholder="Phone number or email address."><br>
-    Select Registry For Enrollment:
-        <% if @registries.empty? %>
-            <p>You are not assigned to any registries!</p>
-        <% else %>
-        <select name="enrollment[registry_id]">
-            <% @registries.where(open: true).each do |registry| %>
-                <option value="<%=registry.id%>"><%=registry.name%></option>
-            <% end %>    
-        <% end %>
-        </select><br>
-    Choose Participant: <select name="enrollment[participant_id]">
-    <% @participants.each do |participant| %>
-        <option value="<%=participant.id%>"><%=participant.name%></option>
-    <% end %>
-    </select><br>
-    <textarea name="enrollment[remarks]" placeholder="Please enter any remarks" cols="30" rows="10"></textarea><br>
-    <input type="submit" value="Complete Enrollment">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="Enrollment">Date of Enrollment</label>
+            <input type="date" name="enrollment[date_of_enrollment]"  class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="Contact">Contact</label>
+            <input type="text" name="enrollment[method_of_contact]" class="form-control" placeholder="Email or Phone Number">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="Registry">Registry</label>
+            <% if @registries.empty? %>
+                <p>You are not assigned to any registries!</p>
+            <% else %>
+                <select class="form-control" name="enrollment[registry_id]">
+                    <option selected>Choose...</option>
+                    <% @registries.where(open: true).each do |registry| %>
+                    <option value="<%=registry.id%>"><%=registry.name%></option>
+                    <% end %>    
+                </select>
+            <% end %>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="Participant">Participant</label>
+            <select class="form-control" name="enrollment[participant_id]">
+                <option selected>Choose...</option>
+                 <% @participants.each do |participant| %>
+                <option value="<%=participant.id%>"><%=participant.name%></option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="remarks">Remarks:</label>
+        <textarea class="form-control" name="enrollment[remarks]" rows="2"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Complete Enrollment</button>
 </form>
 

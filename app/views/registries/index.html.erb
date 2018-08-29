@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/registries">Registries</a>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <a class="nav-link" href="/coordinators">Coordinators</a>
@@ -43,7 +42,8 @@
 
             <% if registry.open == true %>
             <td>
-                <p style="color:green"><strong>Open  </strong><a href="/registries/<%=registry.id%>/toggle" data-method="patch"><button>Toggle Status</button></a></p>
+                <p>Open</p>
+                <a class="btn btn-primary" href="/registries/<%=registry.id%>/toggle" data-method="patch" role="button">Toggle Status</a>
             </td>
             <td>
             <% registry.coordinators.each do |coordinator| %>
@@ -55,24 +55,27 @@
             <td>
                 <form action="/registries/<%=registry.id%>/add_coordinator" method="post">
                     <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-                    <select name="coordinator">
-                    <% @coordinators.each do |coordinator| %>
-                        <option value="<%=coordinator.id%>"><%=coordinator.name%></option>
-                    <% end %>
-                    </select>
-                    <input type="submit" value="Add Coordinator">
+                    <div class="form-group">
+                        <select name="coordinator" class="form-control">
+                         <% @coordinators.each do |coordinator| %>
+                            <option value="<%=coordinator.id%>"><%=coordinator.name%></option>
+                        <% end %>
+                        </select>
+                    </div>
+                   <input class="btn btn-primary" type="submit" value="Add Coordinator">
                 </form>
             </td>
             <% else %>
             <td>
-                <p style="color:red"><strong>Closed</strong>  <a href="registries/<%=registry.id%>/toggle" data-method="patch"><button>Toggle Status</button></a></p>
+                <p>Closed</p>
+                <a class="btn btn-primary" href="/registries/<%=registry.id%>/toggle" data-method="patch" role="button">Toggle Status</a>
             </td>
             <td>
-                <% registry.coordinators.each do |coordinator| %>
-                <ul>
-                    <li><a href="/coordinators/<%=coordinator.id%>"><%=coordinator.name%></a></li>
-                </ul>
-                <% end %>
+            <% registry.coordinators.each do |coordinator| %>
+                <div class="list-group">
+                    <a href="/coordinators/<%=coordinator.id%>" class="list-group-item list-group-item-action"><%=coordinator.name%></a>
+                </div>
+            <% end %>
             </td>
             <% end %>
         </tr>

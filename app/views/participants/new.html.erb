@@ -1,21 +1,48 @@
-<ul>
-    <li><a href="/enrollments/new">Add New Enrollment</a></li>
-    <li><a href="/registries">Add New Registry</a></li>
-    <li><a href="/registries">All Registries</a></li>
-    <li><a href="/coordinators">All Coordinators</a></li>
-    <li><a href="/logout">Logout</a></li>
-</ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/registries">Registries</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/coordinators">Coordinators</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/registries">New Registry</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/enrollments/new">New Enrollment</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
+  </div>
+</nav>
+
 <% flash.each do |key, value| %>
     <p><%= value %></p> 
 <% end %>
-<h3>New Participant Form</h3>
+
+<h4>New Participant Form</h4>
 <form action="/participants" method="post">
     <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-    <input type="text" name="participant[name]" placeholder="Name"><br>
-    <select name="participant[gender]">
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-    </select><br>
-    Date of Birth: <input type="date" name="participant[date_of_birth]"><br>
-    <input type="submit" value="Add Participant">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="name">Name</label>
+            <input type="text" name="participant[name]" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="gender">Gender</label>
+            <select class="form-control" name="participant[gender]">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="dob">Date of Birth</label>
+            <input type="date" name="participant[date_of_birth]" class="form-control">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Participant</button>
 </form>
